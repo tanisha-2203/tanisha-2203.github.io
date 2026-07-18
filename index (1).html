@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Your Name] — Cybersecurity Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1117;
+    --surface:#141A21;
+    --surface-2:#182029;
+    --border:#242C36;
+    --text:#E6EDF3;
+    --text-muted:#8B95A1;
+    --text-dim:#5B6572;
+    --accent:#3FBFAD;
+    --accent-dim:#2A8577;
+    --amber:#E8A33D;
+    --red:#E0554A;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* subtle grid texture backdrop */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.15;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 28px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(13,17,23,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:18px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .nav-brand{
+    font-family:var(--font-mono);
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:0.02em;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-muted);
+  }
+  .nav-links a:hover{color:var(--text);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--border);
+  }
+  .status-line{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:6px 12px;
+    border-radius:3px;
+    margin-bottom:28px;
+    letter-spacing:0.03em;
+  }
+  .status-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 0 rgba(63,191,173,0.6);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(63,191,173,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(63,191,173,0);}
+    100%{box-shadow:0 0 0 0 rgba(63,191,173,0);}
+  }
+  h1{
+    font-family:var(--font-display);
+    font-size:clamp(36px, 6vw, 56px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin-bottom:10px;
+  }
+  .role-line{
+    font-family:var(--font-mono);
+    font-size:16px;
+    color:var(--amber);
+    margin-bottom:26px;
+  }
+  .bio{
+    max-width:620px;
+    color:var(--text-muted);
+    font-size:16px;
+  }
+  .hero-links{
+    display:flex;
+    gap:14px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--font-mono);
+    font-size:13px;
+    padding:10px 18px;
+    border-radius:3px;
+    border:1px solid var(--border);
+    color:var(--text);
+    transition:border-color 0.2s, color 0.2s;
+  }
+  .btn.primary{
+    border-color:var(--accent-dim);
+    color:var(--accent);
+  }
+  .btn:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:64px 0;border-bottom:1px solid var(--border);}
+  .section-eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .section-title{
+    font-family:var(--font-display);
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:36px;
+  }
+
+  /* ---------- PROJECT CARDS ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:26px 28px;
+    margin-bottom:20px;
+    transition:border-color 0.2s, transform 0.2s;
+  }
+  .card:hover{border-color:var(--accent-dim); transform:translateY(-2px);}
+
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:6px;
+    flex-wrap:wrap;
+  }
+  .card-title{
+    font-family:var(--font-display);
+    font-size:19px;
+    font-weight:600;
+  }
+  .badge{
+    font-family:var(--font-mono);
+    font-size:11px;
+    padding:4px 10px;
+    border-radius:3px;
+    letter-spacing:0.04em;
+    white-space:nowrap;
+    border:1px solid;
+  }
+  .badge.critical{color:var(--red); border-color:rgba(224,85,74,0.4); background:rgba(224,85,74,0.08);}
+  .badge.high{color:var(--amber); border-color:rgba(232,163,61,0.4); background:rgba(232,163,61,0.08);}
+  .badge.medium{color:var(--accent); border-color:rgba(63,191,173,0.4); background:rgba(63,191,173,0.08);}
+
+  .card-role{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+    margin-bottom:14px;
+  }
+  .card-desc{
+    color:var(--text-muted);
+    font-size:14.5px;
+    margin-bottom:16px;
+  }
+  .tech-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tech-tag{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--text-muted);
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    padding:4px 9px;
+    border-radius:3px;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:24px;
+  }
+  .skill-group h3{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:12px;
+  }
+  .skill-group ul{list-style:none;}
+  .skill-group li{
+    font-size:14px;
+    color:var(--text-muted);
+    padding:5px 0;
+    border-bottom:1px dashed var(--border);
+  }
+  .skill-group li:last-child{border-bottom:none;}
+
+  /* ---------- LOG / EDUCATION TIMELINE ---------- */
+  .log-entry{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:20px;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .log-entry:last-child{border-bottom:none;}
+  .log-time{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+    padding-top:2px;
+  }
+  .log-title{
+    font-family:var(--font-display);
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:3px;
+  }
+  .log-sub{
+    font-size:13.5px;
+    color:var(--text-muted);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:48px 0 60px;
+    text-align:center;
+  }
+  footer .status-line{margin-bottom:20px;}
+  .footer-links{
+    display:flex;
+    gap:24px;
+    justify-content:center;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-muted);
+  }
+  .footer-links a:hover{color:var(--accent);}
+  .footer-note{
+    margin-top:28px;
+    font-size:12px;
+    color:var(--text-dim);
+    font-family:var(--font-mono);
+  }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .status-dot{animation:none;}
+  }
+
+  @media (max-width:600px){
+    .nav-links{gap:16px; font-size:12px;}
+    .log-entry{grid-template-columns:1fr; gap:4px;}
+    section{padding:48px 0;}
+    .hero{padding:64px 0 48px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav-brand">// [your.name]</div>
+    <div class="nav-links">
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#background">background</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="status-line"><span class="status-dot"></span>status: open to opportunities</div>
+    <h1>[Your Name]</h1>
+    <div class="role-line">Cybersecurity Engineer — Threat Detection · Security Engineering · Networking</div>
+    <p class="bio">
+      Cybersecurity engineer working across threat modeling, detection engineering, and application security.
+      Currently pursuing an M.S. in Cyber Security at Deakin University (GIFT City), with hands-on experience
+      spanning security QA, DevSecOps pipelines, and detection systems that turn raw signals into actionable alerts.
+      I like getting deep enough into a system — network, application, or model — to know what normal looks like,
+      so I can tell when something isn't.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn primary">view projects</a>
+      <a href="#contact" class="btn">get in touch</a>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-eyebrow">// 04 open tickets</div>
+    <h2 class="section-title">Projects</h2>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <div class="card-title">OpsShield — Threat Modeling &amp; Detection Engineering</div>
+        <div class="badge critical">security team</div>
+      </div>
+      <div class="card-role">Capstone Project · Security Team</div>
+      <p class="card-desc">
+        Ran STRIDE threat modeling across every feature before it shipped on a live, production-billed platform
+        built under a 3-week deadline. Defined AppSec scanning gates (SAST/SCA/secrets/DAST) and wrote detection
+        rules for a Wazuh SIEM spanning 8 log sources — covering login brute force, IDOR probing, webhook
+        signature spoofing, and unauthorized IAM changes.
+      </p>
+      <div class="tech-row">
+        <span class="tech-tag">STRIDE</span>
+        <span class="tech-tag">Wazuh</span>
+        <span class="tech-tag">Semgrep</span>
+        <span class="tech-tag">Trivy</span>
+        <span class="tech-tag">OWASP ZAP</span>
+        <span class="tech-tag">Gitleaks</span>
+        <span class="tech-tag">AWS CloudTrail</span>
+        <span class="tech-tag">VPC Flow Logs</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <div class="card-title">ShieldFlow — AppSec Pipeline &amp; SOAR Automation</div>
+        <div class="badge high">group project</div>
+      </div>
+      <div class="card-role">Group Project</div>
+      <p class="card-desc">
+        Built an end-to-end DevSecOps CI/CD pipeline integrating SAST, DAST, SCA, and secrets scanning with
+        severity-based break gates and versioned SARIF artifacts on every commit. Deployed a SOAR playbook that
+        automated the detect → triage → respond loop, reducing mean time to remediation.
+      </p>
+      <div class="tech-row">
+        <span class="tech-tag">GitHub Actions</span>
+        <span class="tech-tag">Semgrep</span>
+        <span class="tech-tag">OWASP ZAP</span>
+        <span class="tech-tag">Trivy</span>
+        <span class="tech-tag">TruffleHog</span>
+        <span class="tech-tag">Shuffle SOAR</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <div class="card-title">SecOpsAI — Adversarial AI Threat Detection Platform</div>
+        <div class="badge medium">group project</div>
+      </div>
+      <div class="card-role">Group Project · Detection Engineer, ML/Detection Team</div>
+      <p class="card-desc">
+        Built detection classifiers mapped to MITRE ATT&amp;CK TTPs, evaluated against the CICIDS2017 and
+        UNSW-NB15 benchmark datasets, outperforming signature-based baselines (Snort/YARA) by 15%+ F1 score.
+        Hardened models against adversarial evasion using IBM ART, shipped as a Dockerized FastAPI microservice.
+      </p>
+      <div class="tech-row">
+        <span class="tech-tag">XGBoost</span>
+        <span class="tech-tag">PyTorch</span>
+        <span class="tech-tag">MITRE ATT&CK</span>
+        <span class="tech-tag">IBM ART</span>
+        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">Grafana</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <div class="card-title">ARP-Based DoS &amp; MITM Cyber Range</div>
+        <div class="badge critical">offense / defense lab</div>
+      </div>
+      <div class="card-role">Independent Project</div>
+      <p class="card-desc">
+        Designed a 4-VM isolated cyber range and executed ARP poisoning to run a full man-in-the-middle
+        attack, intercepting HTTP traffic and blocking ICMP. Verified the attack path through PCAP analysis
+        and documented defensive countermeasures for each stage.
+      </p>
+      <div class="tech-row">
+        <span class="tech-tag">VirtualBox</span>
+        <span class="tech-tag">arpspoof</span>
+        <span class="tech-tag">Wireshark</span>
+        <span class="tech-tag">iptables</span>
+        <span class="tech-tag">tshark</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-eyebrow">// capability index</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h3>Application Security</h3>
+        <ul>
+          <li>Threat Modeling (STRIDE)</li>
+          <li>SAST / DAST / SCA</li>
+          <li>OWASP Top 10</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Detection &amp; SIEM</h3>
+        <ul>
+          <li>Wazuh</li>
+          <li>MITRE ATT&amp;CK</li>
+          <li>Wireshark, Scapy</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Networking</h3>
+        <ul>
+          <li>TCP/IP, DNS, ARP, HTTP/S</li>
+          <li>Linux CLI / Hardening</li>
+          <li>Nmap, Burp Suite</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h3>DevSecOps</h3>
+        <ul>
+          <li>GitHub Actions CI/CD</li>
+          <li>Shuffle SOAR</li>
+          <li>Docker</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="section-eyebrow">// audit log</div>
+    <h2 class="section-title">Background</h2>
+
+    <div class="log-entry reveal">
+      <div class="log-time">2025 — 2027</div>
+      <div>
+        <div class="log-title">M.S. Cyber Security (Professional)</div>
+        <div class="log-sub">Deakin University — GIFT City Campus, Gujarat</div>
+      </div>
+    </div>
+    <div class="log-entry reveal">
+      <div class="log-time">2022 — 2025</div>
+      <div>
+        <div class="log-title">QA Engineer — Accessibility &amp; Security Testing</div>
+        <div class="log-sub">HCL Technologies. Functional, regression, and exploratory testing for
+          Microsoft Teams, SharePoint, and Microsoft Copilot; WCAG 2.1 / Section 508 accessibility audits.</div>
+      </div>
+    </div>
+    <div class="log-entry reveal">
+      <div class="log-time">2018 — 2022</div>
+      <div>
+        <div class="log-title">B.Tech Information Technology</div>
+        <div class="log-sub">GNDEC, Ludhiana</div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="status-line"><span class="status-dot"></span>ready to connect</div>
+    <div class="footer-links">
+      <a href="mailto:your.email@example.com">email</a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener">github</a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">linkedin</a>
+    </div>
+    <div class="footer-note">// replace placeholders in [brackets] with your details before publishing</div>
+  </footer>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
